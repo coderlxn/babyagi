@@ -62,6 +62,7 @@ touch .env
 
 # Open the .env file with a text editor and add your API keys
 echo "OPENAI_API_KEY=your_openai_api_key_here" >> .env
+echo "OPENAI_API_HOST=your_openai_api_host_here" >> .env
 # Add other API keys as needed for other tools (e.g., Airtable)
 echo "SERPAPI_API_KEY=your_serpapi_api_key_here" >> .env
 echo "AIRTABLE_API_KEY=your_airtable_api_key_here" >> .env

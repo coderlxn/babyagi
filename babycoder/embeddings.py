@@ -19,6 +19,7 @@ class Embeddings:
     def __init__(self, workspace_path: str):
         self.workspace_path = workspace_path
         openai.api_key = os.getenv("OPENAI_API_KEY", "")
+        openai.api_base = os.getenv("OPENAI_API_HOST", "")
 
         self.DOC_EMBEDDINGS_MODEL = f"text-embedding-ada-002"
         self.QUERY_EMBEDDINGS_MODEL = f"text-embedding-ada-002"

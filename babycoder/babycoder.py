@@ -23,6 +23,10 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 assert OPENAI_API_KEY, "OPENAI_API_KEY environment variable is missing from .env"
 openai.api_key = OPENAI_API_KEY
 
+OPENAI_API_HOST = os.getenv("OPENAI_API_HOST", "")
+assert OPENAI_API_HOST, "OPENAI_API_HOST environment variable is missing from .env"
+openai.api_base = OPENAI_API_HOST
+
 OPENAI_API_MODEL = os.getenv("OPENAI_API_MODEL", "gpt-3.5-turbo")
 assert OPENAI_API_MODEL, "OPENAI_API_MODEL environment variable is missing from .env"
 

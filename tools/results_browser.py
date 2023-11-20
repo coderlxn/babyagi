@@ -12,6 +12,9 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 assert OPENAI_API_KEY, "OPENAI_API_KEY environment variable is missing from .env"
 
+OPENAI_API_HOST = os.getenv("OPENAI_API_HOST", "")
+assert OPENAI_API_HOST, "OPENAI_API_HOST environment variable is missing from .env"
+
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY", "")
 assert PINECONE_API_KEY, "PINECONE_API_KEY environment variable is missing from .env"
 
@@ -67,6 +70,7 @@ def draw_summary(stdscr, objective, tasks, start, num):
 def main(stdscr):
     # Configure OpenAI
     openai.api_key = OPENAI_API_KEY
+    openai.api_base = OPENAI_API_HOST
 
     # Initialize Pinecone
     pinecone.init(api_key=PINECONE_API_KEY)

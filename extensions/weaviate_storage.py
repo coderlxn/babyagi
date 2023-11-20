@@ -50,6 +50,7 @@ class WeaviateResultsStorage:
     def __init__(
         self,
         openai_api_key: str,
+        openai_api_host: str,
         weaviate_url: str,
         weaviate_api_key: str,
         weaviate_use_embedded: bool,
@@ -59,6 +60,7 @@ class WeaviateResultsStorage:
         objective: str,
     ):
         openai.api_key = openai_api_key
+        openai.api_base = openai_api_host
         self.client = create_client(
             weaviate_url, weaviate_api_key, weaviate_use_embedded
         )

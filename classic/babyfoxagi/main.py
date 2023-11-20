@@ -8,6 +8,7 @@ from ongoing_tasks import ongoing_tasks
 
 app = Flask(__name__, static_folder='public/static')
 openai.api_key = os.getenv('OPENAI_API_KEY')
+openai.api_base = os.getenv('OPENAI_API_HOST')
 
 
 @app.route('/')

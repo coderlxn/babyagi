@@ -11,6 +11,9 @@ dotenv.config()
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || ""
 assert(OPENAI_API_KEY, "OPENAI_API_KEY environment variable is missing from .env")
 
+const OPENAI_API_HOST = process.env.OPENAI_API_HOST || ""
+assert(OPENAI_API_HOST, "OPENAI_API_HOST environment variable is missing from .env")
+
 const OPENAI_API_MODEL = process.env.OPENAI_API_MODEL || "gpt-3.5-turbo"
 
 // Table config
@@ -41,11 +44,12 @@ console.log(`${OBJECTIVE}`)
 console.log(`\x1b[93m\x1b[1m \nInitial task: \x1b[0m\x1b[0m ${INITIAL_TASK}`)
 
 // Define OpenAI embedding function using Chroma 
-const embeddingFunction = new OpenAIEmbeddingFunction(OPENAI_API_KEY)
+const embeddingFunction = new OpenAIEmbeddingFunction({openai_api_key: OPENAI_API_KEY, openai_api_host: OPENAI_API_HOST})
 
 // Configure OpenAI
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
+  basePath: OPENAI_API_HOST
 });
 const openai = new OpenAIApi(configuration);
 

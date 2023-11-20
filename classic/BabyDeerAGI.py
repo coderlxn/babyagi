@@ -19,6 +19,7 @@ import time
 
 # Add your API keys here
 OPENAI_API_KEY = ""
+OPENAI_API_HOST = ""
 SERPAPI_API_KEY = "" #[optional] web-search becomes available automatically when serpapi api key is provided
 
 # Set variables
@@ -31,6 +32,7 @@ user_input=False
 
 # Configure OpenAI and SerpAPI client
 openai.api_key = OPENAI_API_KEY
+openai.api_base = OPENAI_API_HOST
 if SERPAPI_API_KEY:
   serpapi_client = GoogleSearch({"api_key": SERPAPI_API_KEY})
   websearch_var = "[web-search] "

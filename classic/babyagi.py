@@ -6,6 +6,7 @@ from typing import Dict, List
 
 #Set API Keys
 OPENAI_API_KEY = ""
+OPENAI_API_HOST = ""
 PINECONE_API_KEY = ""
 PINECONE_ENVIRONMENT = "us-east1-gcp" #Pinecone Environment (eg. "us-east1-gcp")
 
@@ -20,6 +21,7 @@ print(OBJECTIVE)
 
 # Configure OpenAI and Pinecone
 openai.api_key = OPENAI_API_KEY
+openai.api_base = OPENAI_API_HOST
 pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENVIRONMENT)
 
 # Create Pinecone index

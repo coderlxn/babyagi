@@ -16,6 +16,7 @@ from serpapi import GoogleSearch
 
 # Add your API keys here
 OPENAI_API_KEY = ""
+OPENAI_API_HOST = ""
 SERPAPI_API_KEY = "" #If you include SERPAPI KEY, this will enable web-search. If you don't, it will autoatically remove web-search capability.
 
 # Set variables
@@ -26,6 +27,7 @@ YOUR_FIRST_TASK = "Develop a task list." #you can provide additional instruction
 
 # Configure OpenAI and SerpAPI client
 openai.api_key = OPENAI_API_KEY
+openai.api_base = OPENAI_API_HOST
 if SERPAPI_API_KEY:
   serpapi_client = GoogleSearch({"api_key": SERPAPI_API_KEY})
   websearch_var = "[web-search] "

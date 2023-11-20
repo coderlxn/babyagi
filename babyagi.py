@@ -32,6 +32,8 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 if not (LLM_MODEL.startswith("llama") or LLM_MODEL.startswith("human")):
     assert OPENAI_API_KEY, "\033[91m\033[1m" + "OPENAI_API_KEY environment variable is missing from .env" + "\033[0m\033[0m"
 
+OPENAI_API_HOST = os.getenv("OPENAI_API_HOST", "")
+
 # Table config
 RESULTS_STORE_NAME = os.getenv("RESULTS_STORE_NAME", os.getenv("TABLE_NAME", ""))
 assert RESULTS_STORE_NAME, "\033[91m\033[1m" + "RESULTS_STORE_NAME environment variable is missing from .env" + "\033[0m\033[0m"
@@ -170,6 +172,7 @@ else:
 
 # Configure OpenAI
 openai.api_key = OPENAI_API_KEY
+openai.api_base = OPENAI_API_HOST
 
 
 # Llama embedding function
@@ -202,7 +205,7 @@ class DefaultResultsStorage:
         if LLM_MODEL.startswith("llama"):
             embedding_function = LlamaEmbeddingFunction()
         else:
-            embedding_function = OpenAIEmbeddingFunction(api_key=OPENAI_API_KEY)
+            embedding_function = OpenAIEmbeddingFunction(api_key=OPENAI_API_KEY, api_base=OPENAI_API_HOST)
         self.collection = chroma_client.get_or_create_collection(
             name=RESULTS_STORE_NAME,
             metadata={"hnsw:space": metric},
@@ -254,7 +257,7 @@ def try_weaviate():
         WEAVIATE_API_KEY = os.getenv("WEAVIATE_API_KEY", "")
         from extensions.weaviate_storage import WeaviateResultsStorage
         print("\nUsing results storage: " + "\033[93m\033[1m" + "Weaviate" + "\033[0m\033[0m")
-        return WeaviateResultsStorage(OPENAI_API_KEY, WEAVIATE_URL, WEAVIATE_API_KEY, WEAVIATE_USE_EMBEDDED, LLM_MODEL, LLAMA_MODEL_PATH, RESULTS_STORE_NAME, OBJECTIVE)
+        return WeaviateResultsStorage(OPENAI_API_KEY, OPENAI_API_HOST, WEAVIATE_URL, WEAVIATE_API_KEY, WEAVIATE_USE_EMBEDDED, LLM_MODEL, LLAMA_MODEL_PATH, RESULTS_STORE_NAME, OBJECTIVE)
     return None
 
 def try_pinecone():
@@ -266,7 +269,7 @@ def try_pinecone():
         ), "\033[91m\033[1m" + "PINECONE_ENVIRONMENT environment variable is missing from .env" + "\033[0m\033[0m"
         from extensions.pinecone_storage import PineconeResultsStorage
         print("\nUsing results storage: " + "\033[93m\033[1m" + "Pinecone" + "\033[0m\033[0m")
-        return PineconeResultsStorage(OPENAI_API_KEY, PINECONE_API_KEY, PINECONE_ENVIRONMENT, LLM_MODEL, LLAMA_MODEL_PATH, RESULTS_STORE_NAME, OBJECTIVE)
+        return PineconeResultsStorage(OPENAI_API_KEY, OPENAI_API_HOST, PINECONE_API_KEY, PINECONE_ENVIRONMENT, LLM_MODEL, LLAMA_MODEL_PATH, RESULTS_STORE_NAME, OBJECTIVE)
     return None
 
 def use_chroma():
